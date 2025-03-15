@@ -1,5 +1,6 @@
 package com.example.whosthatdog.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ sealed interface HomeUiState {
     data object Loading : HomeUiState
 }
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val autoFetch: Boolean = true) : ViewModel() {
 
     private val _homeUiState = mutableStateOf<HomeUiState>(HomeUiState.Loading)
     val homeUiState: State<HomeUiState> = _homeUiState
@@ -50,5 +51,10 @@ class HomeViewModel : ViewModel() {
             }
 
         }
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setTestHomeUiState(state: HomeUiState) {
+        _homeUiState.value = state
     }
 }

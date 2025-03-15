@@ -69,4 +69,8 @@ dependencies {
 
     // OKHttp: Logging
     implementation(libs.okhttp.logging.interceptor)
+
+    // Coroutine Test Dependencies
+    testImplementation(libs.kotlinx.coroutines.test)
+
 }
