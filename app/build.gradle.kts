@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.whosthatdog"
+    namespace = "com.vn.whosthatdog"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.whosthatdog"
+        applicationId = "com.vn.whosthatdog"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -20,6 +20,7 @@ android {
 
     buildTypes {
         release {
+            isDebuggable = false
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
