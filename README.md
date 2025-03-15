@@ -1,5 +1,4 @@
 # WhosThatDog
-# Fetch Rewards Coding Exercise - Android Internship
 
 ## Overview
 This is a **Jetpack Compose** Android application built with Kotlin that fetches and displays a list of items from [this API](https://dog.ceo/dog-api/).
