@@ -1,9 +1,13 @@
 package com.vn.whosthatdog
 
+import com.vn.whosthatdog.models.RandomImageModel
 import com.vn.whosthatdog.services.ApiServices
 import com.vn.whosthatdog.services.RetrofitClient
 import com.vn.whosthatdog.viewmodel.HomeUiState
 import com.vn.whosthatdog.viewmodel.HomeViewModel
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -14,42 +18,60 @@ import org.junit.After
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 
 @OptIn(ExperimentalCoroutinesApi::class)
 
-class HomeViewModelTest{
+class HomeViewModelTest {
 
     private lateinit var homeViewModel: HomeViewModel
     private val testDispatcher = StandardTestDispatcher()
 
-    private fun setTestHomeUiStateSuccess(){
+//    private val apiService: ApiServices = mockk()
+
+    private fun setTestHomeUiStateSuccess() {
         homeViewModel.setTestHomeUiState(HomeUiState.Success("https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg"))
 
     }
 
-    private fun setTestHomeUiStateError(){
+    private fun setTestHomeUiStateError() {
         homeViewModel.setTestHomeUiState(HomeUiState.Error)
 
     }
 
-    private fun setTestHomeUiStateLoading(){
+    private fun setTestHomeUiStateLoading() {
         homeViewModel.setTestHomeUiState(HomeUiState.Loading)
 
     }
 
     @Before
-    fun setUp(){
+    fun setUp() {
         Dispatchers.setMain(this.testDispatcher)
         homeViewModel = HomeViewModel()
+//        homeViewModel.setApiServices(
+//            apiServices = apiService
+//        )
     }
 
     @After
-    fun tearDown(){
+    fun tearDown() {
         Dispatchers.resetMain()
     }
+
+//    @Test
+//    fun fetchRandomImage_success() {
+//        // Arrange: Mock API call
+//        coEvery { apiService.getRandomImage() } returns RandomImageModel(status = "success", message = "https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg")
+//
+//        // Act: Call the ViewModel function
+//        homeViewModel.fetchRandomImage()
+//
+//        // Assert: Verify state change
+//        assert(homeViewModel.homeUiState.value is HomeUiState.Error)
+//
+//        // Verify API was called
+//        coVerify { apiService.getRandomImage() }
+//    }
 
     @Test
     fun homeViewModel_Initialization_State() {
@@ -59,7 +81,7 @@ class HomeViewModelTest{
     }
 
     @Test
-    fun checkAnswer_nullAnswer_returnsFalse(){
+    fun checkAnswer_nullAnswer_returnsFalse() {
         setTestHomeUiStateSuccess()
         val result = homeViewModel.checkAnswer(null)
 
@@ -67,7 +89,7 @@ class HomeViewModelTest{
     }
 
     @Test
-    fun checkAnswer_correctAnswer_returnsFalse(){
+    fun checkAnswer_correctAnswer_returnsFalse() {
         setTestHomeUiStateSuccess()
         val result = homeViewModel.checkAnswer("hound afghan")
 
@@ -75,7 +97,7 @@ class HomeViewModelTest{
     }
 
     @Test
-    fun checkAnswer_wrongAnswer_returnsFalse(){
+    fun checkAnswer_wrongAnswer_returnsFalse() {
         setTestHomeUiStateSuccess()
         val result = homeViewModel.checkAnswer("null")
 
@@ -83,26 +105,26 @@ class HomeViewModelTest{
     }
 
     @Test
-    fun showAnswer_SuccessState(){
+    fun showAnswer_SuccessState() {
         setTestHomeUiStateSuccess()
         val result = homeViewModel.showAnswer()
 
-        assertEquals("Hound afghan",result)
+        assertEquals("Hound afghan", result)
     }
 
     @Test
-    fun showAnswer_ErrorState(){
+    fun showAnswer_ErrorState() {
         setTestHomeUiStateError()
         val result = homeViewModel.showAnswer()
 
-        assertEquals("",result)
+        assertEquals("", result)
     }
 
     @Test
-    fun showAnswer_LoadingState(){
+    fun showAnswer_LoadingState() {
         setTestHomeUiStateLoading()
         val result = homeViewModel.showAnswer()
 
-        assertEquals("",result)
+        assertEquals("", result)
     }
 }

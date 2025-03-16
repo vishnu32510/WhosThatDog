@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vn.whosthatdog.services.ApiServices
 import com.vn.whosthatdog.services.RetrofitClient
 import com.vn.whosthatdog.utils.capitalizeFirstLetter
 import kotlinx.coroutines.launch
@@ -20,8 +21,9 @@ class HomeViewModel() : ViewModel() {
     private val _homeUiState = mutableStateOf<HomeUiState>(HomeUiState.Loading)
     val homeUiState: State<HomeUiState> = _homeUiState
 
+    private var _apiServices = RetrofitClient.apiServices
+
     init {
-        _homeUiState.value = HomeUiState.Loading
         fetchRandomImage()
     }
 
@@ -50,7 +52,7 @@ class HomeViewModel() : ViewModel() {
         _homeUiState.value = HomeUiState.Loading
         viewModelScope.launch {
             try {
-                val res = RetrofitClient.apiServices.getRandomImage()
+                val res = _apiServices.getRandomImage()
 
                 if (res.message != null  && res.status == "success"){
                     _homeUiState.value = HomeUiState.Success(imageURl = res.message)
@@ -68,5 +70,10 @@ class HomeViewModel() : ViewModel() {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun setTestHomeUiState(state: HomeUiState) {
         _homeUiState.value = state
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setApiServices(apiServices: ApiServices) {
+        _apiServices = apiServices
     }
 }
