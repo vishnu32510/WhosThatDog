@@ -74,4 +74,8 @@ dependencies {
     // Coroutine Test Dependencies
     testImplementation(libs.kotlinx.coroutines.test)
 
+    // Mockito to Mock Network Calls
+    testImplementation(libs.mockito)
+    testImplementation(libs.mockitoKotlin)
+
 }

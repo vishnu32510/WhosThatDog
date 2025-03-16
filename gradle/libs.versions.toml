@@ -13,6 +13,8 @@ coil-compose_version = "2.1.0"
 retrofit = "2.9.0"
 okhttpLogging = "4.9.3"
 kotlinx-coroutines = "1.7.3"
+mockito = "4.8.0"
+mockitoKotlin = "4.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +45,10 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 
 #Coroutine Test Dependencies
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+#Mockito
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

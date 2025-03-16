@@ -4,12 +4,14 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -114,18 +116,28 @@ fun HomeScreen(onExploreClick: () -> Unit) {
 //                        visualTransformation = TODO()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    val res:Boolean = homeViewModel.checkAnswer(answer)
-                    if (res){
-                        Toast.makeText(context, "You are right!!", Toast.LENGTH_SHORT).show()
-                        homeViewModel.fetchRandomImage()
-                        onAnswerChange("")
-                    }else{
-                        Toast.makeText(context, "Better luck Next time!!", Toast.LENGTH_SHORT).show()
-                        onAnswerChange("")
+                Row {
+                    Button(onClick = {
+                        val res: Boolean = homeViewModel.checkAnswer(answer)
+                        if (res) {
+                            Toast.makeText(context, "You are right!!", Toast.LENGTH_SHORT).show()
+                            homeViewModel.fetchRandomImage()
+                            onAnswerChange("")
+                        } else {
+                            Toast.makeText(context, "Better luck Next time!!", Toast.LENGTH_SHORT)
+                                .show()
+                            onAnswerChange("")
+                        }
+                    }) {
+                        Text("Check")
                     }
-                }) {
-                    Text("Check")
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Button(onClick = {
+                        val res: String = homeViewModel.showAnswer()
+                        onAnswerChange(res)
+                    }) {
+                        Text("Show Answer")
+                    }
                 }
             }
         }

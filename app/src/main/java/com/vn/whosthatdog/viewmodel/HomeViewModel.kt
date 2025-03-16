@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vn.whosthatdog.services.RetrofitClient
+import com.vn.whosthatdog.utils.capitalizeFirstLetter
 import kotlinx.coroutines.launch
 
 sealed interface HomeUiState {
@@ -14,13 +15,24 @@ sealed interface HomeUiState {
     data object Loading : HomeUiState
 }
 
-class HomeViewModel(private val autoFetch: Boolean = true) : ViewModel() {
+class HomeViewModel() : ViewModel() {
 
     private val _homeUiState = mutableStateOf<HomeUiState>(HomeUiState.Loading)
     val homeUiState: State<HomeUiState> = _homeUiState
 
     init {
+        _homeUiState.value = HomeUiState.Loading
         fetchRandomImage()
+    }
+
+    fun showAnswer(): String{
+        if (homeUiState.value !is HomeUiState.Success){
+            return ""
+        }
+        val st = (homeUiState.value as HomeUiState.Success).imageURl
+        val part = st.replace("-"," ").split(("/"))
+
+        return part[part.size - 2].lowercase().capitalizeFirstLetter()
     }
 
     fun checkAnswer(answer: String?): Boolean{
