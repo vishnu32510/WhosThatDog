@@ -24,7 +24,7 @@ This is a **Jetpack Compose** Android application built with Kotlin that fetches
 ## Screenshots
 | Home Screen                                  | Breeds List                                  | Images of the Breed                              |
 |----------------------------------------------|----------------------------------------------|--------------------------------------------------|
-| ![All](screenshots/Screenshot_1.jpeg)        | ![Categories](screenshots/Screenshot_3.jpeg) | ![Favorite](screenshots/Screenshot_2.jpeg)       |
+| ![All](screenshots/Screenshot_1.jpeg)        | ![Categories](screenshots/Screenshot_2.jpeg) | ![Favorite](screenshots/Screenshot_3.jpeg)       |
 
 ---
 
