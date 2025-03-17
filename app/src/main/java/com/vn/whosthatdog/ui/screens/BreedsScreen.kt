@@ -36,7 +36,7 @@ fun BreedsScreen(onBreedClick: (breed: String, subBreed: String?) -> Unit) {
             TopAppBar(
                 title = {
                     Text(
-                        "List of Dog Breends",
+                        "List of Dog Breeds",
                         style = MaterialTheme.typography.titleLarge,
 //                        modifier = Modifier.padding(5.dp)
                     )

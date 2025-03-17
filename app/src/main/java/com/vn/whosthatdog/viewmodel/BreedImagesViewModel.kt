@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.vn.whosthatdog.services.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 sealed interface BreedsImagesUiState {
@@ -19,7 +20,7 @@ class BreedsImagesViewModel() : ViewModel() {
 
     private val _breedsImagesUiState =
         MutableStateFlow<BreedsImagesUiState>(BreedsImagesUiState.Loading)
-    val breedsImagesUiState: StateFlow<BreedsImagesUiState> = _breedsImagesUiState
+    val breedsImagesUiState: StateFlow<BreedsImagesUiState> = _breedsImagesUiState.asStateFlow()
 
 //    init {
 //        if(subBreed != null){

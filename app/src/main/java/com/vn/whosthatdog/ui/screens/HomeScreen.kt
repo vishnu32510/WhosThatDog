@@ -16,14 +16,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,6 +47,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.vn.whosthatdog.ui.components.CustomTextField
 import com.vn.whosthatdog.ui.components.HeaderText
+import com.vn.whosthatdog.ui.components.NavigationBottomBar
 import com.vn.whosthatdog.ui.components.ShowImage
 import com.vn.whosthatdog.viewmodel.HomeUiState
 import com.vn.whosthatdog.viewmodel.HomeViewModel
@@ -59,19 +67,27 @@ fun HomeScreen(onExploreClick: () -> Unit) {
                 title =
                 { HeaderText(modifier = Modifier, text = "Home Screen") },
                 actions = {
-                   IconButton(onClick = onExploreClick) { Icon(imageVector = Icons.Filled.MoreVert, contentDescription = null) }
+                    IconButton(onClick = onExploreClick) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = null
+                        )
+                    }
                 }
             )
         },
         floatingActionButton = {
             Button(
-                onClick = {homeViewModel.fetchRandomImage()},
+                onClick = { homeViewModel.fetchRandomImage() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.tertiary
                 )
             ) {
                 Text("Refresh")
             }
+        },
+        bottomBar = {
+            NavigationBottomBar()
         },
 //        floatingActionButtonPosition = {  },
 //        containerColor = {  },
@@ -95,13 +111,15 @@ fun HomeScreen(onExploreClick: () -> Unit) {
                     modifier = Modifier
                 )
                 Spacer(Modifier.height(8.dp))
-                when(homeViewModel.homeUiState.value){
+                when (homeViewModel.homeUiState.value) {
                     is HomeUiState.Loading -> Surface(modifier = Modifier.fillMaxSize()) {
                         LoadingErrorImage("Loading...")
                     }
+
                     is HomeUiState.Error -> Surface(modifier = Modifier.fillMaxSize()) {
                         LoadingErrorImage("Error")
                     }
+
                     is HomeUiState.Success -> ImageView(imageUrl = (homeViewModel.homeUiState.value as HomeUiState.Success).imageURl)
                 }
 
@@ -152,9 +170,9 @@ private fun LoadingErrorImage(text: String) {
             .aspectRatio(1f)
             .padding(horizontal = 50.dp),
 //                    color = MaterialTheme.colorScheme.primary,
-                    shadowElevation = 10.dp,
+        shadowElevation = 10.dp,
 //                    contentColor = MaterialTheme.colorScheme.primary,
-    ){
+    ) {
         Text(text, modifier = Modifier)
     }
 }
@@ -169,7 +187,7 @@ fun ImageView(imageUrl: String?) {
             .aspectRatio(1f)
             .padding(horizontal = 50.dp),
 //                    color = MaterialTheme.colorScheme.primary,
-                    shadowElevation = 20.dp,
+        shadowElevation = 20.dp,
 //                    contentColor = MaterialTheme.colorScheme.primary,
     )
     {

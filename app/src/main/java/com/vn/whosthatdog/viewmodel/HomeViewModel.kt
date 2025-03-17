@@ -38,7 +38,7 @@ class HomeViewModel() : ViewModel() {
     }
 
     fun checkAnswer(answer: String?): Boolean{
-        if (answer == null){
+        if (answer == null || homeUiState.value !is HomeUiState.Success){
             return false
         }
         val st = (homeUiState.value as HomeUiState.Success).imageURl
